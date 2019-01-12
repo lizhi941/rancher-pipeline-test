@@ -1,0 +1,54 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpadmin-mysql
+  labels:
+    app: phpadmin-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: php
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        ports:
+        - containerPort: 80
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-example
+  template:
+    metadata:
+      labels:
+        app: php-example
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: php
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        ports:
+        - containerPort: 80
+
