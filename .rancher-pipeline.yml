@@ -3,7 +3,7 @@ stages:
   steps:
   - publishImageConfig:
       dockerfilePath: ./mysql/Dockerfile
-      buildContext: .
+      buildContext: ./mysql
       tag: mysql:${CICD_EXECUTION_SEQUENCE}
 - name: Publish image phpmyadmin
   steps:
