@@ -1,6 +1,6 @@
 FROM phpmyadmin/phpmyadmin:4.7
 
-COPY lizhi-phpadmin.txt    /var
+COPY /phpadmin/lizhi-phpadmin.txt    /var
 
 EXPOSE 80
 
