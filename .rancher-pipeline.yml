@@ -2,7 +2,7 @@ stages:
 - name: Publish image
   steps:
   - publishImageConfig:
-      dockerfilePath: ./phpadmin/Dockerfile
+      dockerfilePath: ./phpadmin
       buildContext: ./phpadmin
       tag: phpmyadmin:${CICD_EXECUTION_SEQUENCE}
 - name: Deploy
